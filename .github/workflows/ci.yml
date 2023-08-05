@@ -45,7 +45,10 @@ jobs:
       
           # Update the deployment.yaml file with the new Docker image tag
           sed -i 's|image: sisman/my-app:.*$|image: sisman/my-app:${{ steps.get_short_sha.outputs.short_sha }}|' deployment.yaml
-      
+
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "GitHub Actions"
+          
           git commit -am "Update Docker image tag in deployment.yaml"
           git push
 
