@@ -33,7 +33,7 @@ jobs:
           tags: sisman/my-app:${{ steps.get_short_sha.outputs.short_sha }}
       - name: Update deployment repository
         run: |
-          git clone git@github.com:omersisman/argocd-app-config.git
+          git clone https://$DEPLOYMENT_TOKEN@github.com/omersisman/argocd-app-config.git
           cd argocd-app-config/dev
       
           # Update the deployment.yaml file with the new Docker image tag
