@@ -43,7 +43,7 @@ jobs:
           git clone https://github.com/omersisman/argocd-app-config.git
           cd argocd-app-config/dev
       
-          # Update the deployment.yaml file with the new Docker image tag
+          # Update the dev/deployment.yaml file with the new Docker image tag
           sed -i 's|image: sisman/my-app:.*$|image: sisman/my-app:${{ steps.get_short_sha.outputs.short_sha }}|' deployment.yaml
 
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
