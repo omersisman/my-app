@@ -49,7 +49,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "GitHub Actions"
 
-          git remote set-url origin "https://${{ secrets.DEPLOYMENT_SSH_KEY }}@github.com/omersisman/argocd-app-config.git"
+          git remote set-url origin "https://${{ secrets.DEPLOYMENT_TOKEN }}@github.com/omersisman/argocd-app-config.git"
           
           git commit -am "Update Docker image tag in deployment.yaml"
           git push origin main
