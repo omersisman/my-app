@@ -31,16 +31,22 @@ jobs:
         with:
           push: true
           tags: sisman/my-app:${{ steps.get_short_sha.outputs.short_sha }}
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOYMENT_SSH_KEY" | base64 -d > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
       - name: Update deployment repository
         run: |
-          git clone https://$DEPLOYMENT_TOKEN@github.com/omersisman/argocd-app-config.git
+          git clone git@github.com:omersisman/argocd-app-config.git
           cd argocd-app-config/dev
       
           # Update the deployment.yaml file with the new Docker image tag
           sed -i 's|image: sisman/my-app:.*$|image: sisman/my-app:${{ steps.get_short_sha.outputs.short_sha }}|' deployment.yaml
       
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "GitHub Actions"
           git commit -am "Update Docker image tag in deployment.yaml"
-          git push https://$DEPLOYMENT_TOKEN@github.com/omersisman/argocd-app-config.git
+          git push
+
 
